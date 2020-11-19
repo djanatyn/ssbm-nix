@@ -1,0 +1,50 @@
+diff --git a/Build TM Codeset/codes.json b/Build TM Codeset/codes.json
+index 0ce52cf..8072b99 100644
+--- a/Build TM Codeset/codes.json
++++ b/Build TM Codeset/codes.json
+@@ -5,7 +5,7 @@
+     "outputFiles":
+     [
+       {
+-        "file": "..\\Additional ISO Files\\codes.gct"
++        "file": "../Additional ISO Files/codes.gct"
+       }
+     ],
+   "codes": [
+@@ -20,31 +20,31 @@
+       "build": [
+         {
+           "type": "injectFolder",
+-          "sourceFolder": "..\\ASM",
++          "sourceFolder": "../ASM",
+           "isRecursive": true
+         },
+         {
+           "type": "replaceCodeBlock",
+           "address": "8042ABD8",
+-          "sourceFile": "..\\ASM\\Misc\\Edit Hyphen Texture.s",
++          "sourceFile": "../ASM/Misc/Edit Hyphen Texture.s",
+           "annotation": "Edit Hyphen Texture"
+         },
+         {
+           "type": "replaceCodeBlock",
+           "address": "8040a58c",
+-          "sourceFile": "..\\ASM\\Misc\\Store Version Number.s",
++          "sourceFile": "../ASM/Misc/Store Version Number.s",
+           "annotation": "Version Number"
+         },
+         {
+           "type": "replaceCodeBlock",
+           "address": "803ea6c8",
+-          "sourceFile": "..\\ASM\\Misc\\Overwrite Compile Date.s",
++          "sourceFile": "../ASM/Misc/Overwrite Compile Date.s",
+           "annotation": "Overwrite Compile Date"
+         },
+         {
+           "type": "replaceCodeBlock",
+           "address": "803edc1c",
+-          "sourceFile": "..\\ASM\\Misc\\QWERTY Keyboard.s",
++          "sourceFile": "../ASM/Misc/QWERTY Keyboard.s",
+           "annotation": "QWERTY Keyboard"
+         }
+       ]
