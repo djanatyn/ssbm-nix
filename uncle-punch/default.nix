@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    install -Dm755 ../Additional\ ISO\ Files/codes.gct -t $out
+    install -Dm755 Additional\ ISO\ Files/codes.gct -t $out
   '';
 }
