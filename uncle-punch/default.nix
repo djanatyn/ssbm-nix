@@ -12,7 +12,10 @@ stdenv.mkDerivation rec {
     sha256 = "1ma5m3h1q70v0h9rm3ad69j0dwvk625iy0cvzzw0q4qw8nvw6c0i";
   };
 
-  patches = [ ./fix-codes.patch ];
+  patchPhase = ''
+    patch -u -p1 'Build TM Codeset/codes.json' < ${./fix-codes.patch}
+  '';
+
   buildInputs = [ ssbm wiimms-iso-tools gecko xdelta powerpc-eabi-assembling ];
 
   buildPhase = ''
@@ -20,6 +23,6 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    install -Dm755 Additional\ ISO\ Files/codes.gct -t $out
+    install -Dm755 ../Additional\ ISO\ Files/codes.gct -t $out
   '';
 }
