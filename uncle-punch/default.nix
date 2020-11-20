@@ -1,5 +1,5 @@
 { stdenv, fetchFromGitHub, xdelta, wiimms-iso-tools, gecko
-, powerpc-eabi-assembling, ssbm }:
+, powerpc-eabi-assembling, ssbm, xxd }:
 
 stdenv.mkDerivation rec {
   pname = "uncle-punch";
@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ ssbm wiimms-iso-tools gecko xdelta powerpc-eabi-assembling ];
 
   buildPhase = ''
-    cd 'Build TM Codeset'
-    gecko build
+    (cd 'Build TM Codeset' && gecko build)
 
     wit extract ${ssbm}/ssbm.iso $out/ssbm-unpacked
     # xdelta3 -d -s $out/ssbm-unpackedk
