@@ -20,4 +20,6 @@ in with pkgs; rec {
   # };
 
   slippi-netplay = callPackage ./slippi { playbackSlippi = false; };
+
+  gcmtool = callPackage ./gcmtool { };
 }
