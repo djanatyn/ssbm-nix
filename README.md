@@ -32,7 +32,8 @@ warning: dumping very large path (> 256 MiB); this may run out of memory
 
 ## TODO
 ### Playing Melee
-* [ ] [slippi-netplay + slippi-playback](https://github.com/project-slippi/Ishiiruka/pull/164)
+* [X] [slippi-netplay](https://github.com/project-slippi/Ishiiruka/pull/164)
+* [ ] [slippi-playback](https://github.com/project-slippi/Ishiiruka/pull/164)
 
 ### Tooling
 * [X] Package JLaferri/gecko
@@ -43,10 +44,10 @@ warning: dumping very large path (> 256 MiB); this may run out of memory
 * [ ] Level Skin Module
 
 ### Building Codesets
-* [ ] Build TM Codeset with `gecko build`
+* [X] Build TM Codeset with `gecko build`
 
 ### Applying Codesets
-* [ ] Extract main.dol with `wit`
+* [X] Extract main.dol with `wit`
 * [ ] Patch main.dol with TM Codeset output
 
 ### Building Complete Mods
