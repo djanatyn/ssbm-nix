@@ -13,4 +13,11 @@ in with pkgs; rec {
 
   uncle-punch =
     callPackage ./uncle-punch { inherit ssbm gecko powerpc-eabi-assembling; };
+
+  # slippi-playback = callPackage ./slippi {
+  #   playbackSlippi = true;
+  #   inherit slippiDesktopApp;
+  # };
+
+  slippi-netplay = callPackage ./slippi { playbackSlippi = false; };
 }
