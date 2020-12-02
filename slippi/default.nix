@@ -1,8 +1,8 @@
 { stdenv, gcc, slippiDesktopApp ? false, playbackSlippi, fetchFromGitHub
 , mesa_drivers, mesa_glu, mesa, pkgconfig, cmake, bluez, ffmpeg, libao, libGLU
-, gtk2, gtk3, glib, gettext, xorg, readline, openal, libevdev, portaudio, libusb
+, gtk3, glib, gettext, xorg, readline, openal, libevdev, portaudio, libusb
 , libpulseaudio, libudev, gnumake, wxGTK30, gdk-pixbuf, soundtouch, miniupnpc
-, mbedtls, curl, lzo, sfml, enet, xdg_utils, hidapi }:
+, mbedtls, curl, lzo, sfml, enet, xdg_utils, hidapi, webkit }:
 stdenv.mkDerivation rec {
   pname = "slippi-ishiiruka";
   version = "2.2.3";
@@ -21,9 +21,9 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DLINUX_LOCAL_DEV=true"
-    "-DGTK2_GLIBCONFIG_INCLUDE_DIR=${glib.out}/lib/glib-2.0/include"
-    "-DGTK2_GDKCONFIG_INCLUDE_DIR=${gtk2.out}/lib/gtk-2.0/include"
-    "-DGTK2_INCLUDE_DIRS=${gtk2.out}/lib/gtk-2.0"
+    "-DGTK3_GLIBCONFIG_INCLUDE_DIR=${glib.out}/lib/glib-3.0/include"
+    "-DGTK3_GDKCONFIG_INCLUDE_DIR=${gtk3.out}/lib/gtk-3.0/include"
+    "-DGTK3_INCLUDE_DIRS=${gtk3.out}/lib/gtk-3.0"
     "-DENABLE_LTO=True"
   ] ++ stdenv.lib.optional (playbackSlippi) "-DIS_PLAYBACK=true";
 
@@ -54,8 +54,6 @@ stdenv.mkDerivation rec {
     ffmpeg
     libao
     libGLU
-    gtk2
-    gtk3
     glib
     gettext
     xorg.libpthreadstubs
@@ -73,6 +71,7 @@ stdenv.mkDerivation rec {
     libudev
     gnumake
     wxGTK30
+    gtk3
     gdk-pixbuf
     soundtouch
     miniupnpc
@@ -83,5 +82,6 @@ stdenv.mkDerivation rec {
     enet
     xdg_utils
     hidapi
+    webkit
   ];
 }
