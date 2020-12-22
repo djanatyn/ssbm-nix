@@ -16,7 +16,7 @@ in with pkgs; rec {
 
   slippi-playback = callPackage ./slippi {
     playbackSlippi = true;
-    inherit slippiDesktopApp;
+    slippiDesktopApp = sources.slippi-desktop-app;
   };
 
   slippi-netplay = callPackage ./slippi { playbackSlippi = false; };
