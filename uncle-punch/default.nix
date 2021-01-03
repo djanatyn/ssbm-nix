@@ -3,17 +3,18 @@
 
 stdenv.mkDerivation rec {
   pname = "uncle-punch";
-  version = "1.1";
+  version = "2.0";
 
   src = fetchFromGitHub {
     owner = "UnclePunch";
     repo = "Training-Mode";
     rev = "v${version}";
-    sha256 = "1ma5m3h1q70v0h9rm3ad69j0dwvk625iy0cvzzw0q4qw8nvw6c0i";
+    sha256 = "Ck8AAsxSIl/qLKzf2CtiHdmcSZIouHHEBywVhWd1KRQ="; # 2.0
+#   sha256 = "ETDDt0UcEwz4/5sBH4swc/MGZDJNjZoTBBscHOCoRdU="; # 1.1
   };
 
   patchPhase = ''
-    patch -u -p1 'Build TM Codeset/codes.json' < ${./fix-codes.patch}
+    sed -ie 's|\\\\|/|g' Build\ TM\ Codeset/codes.json
   '';
 
   buildInputs =
@@ -25,16 +26,18 @@ stdenv.mkDerivation rec {
     wit extract ${ssbm}/ssbm.iso ssbm-unpacked
 
     # main.dol (wit) -> Start.dol (GC-Rebuilder)
+    echo 'converting main.dol to Start.dol'
     xxd ssbm-unpacked/P-GALE/sys/main.dol > wit.hex
     patch -p0 < ${./fix-start-dol.patch}
     xxd -r wit.hex > Start.dol
+    echo 'Converted main.dol to Start.dol!'
 
     xdelta3 -d -f \
       -s Start.dol \
       'Build TM Start.dol/StartdolTMPatch.xdelta' \
       ssbm-unpacked/P-GALE/sys/Start.dol
 
-    cp -rv 'Additional ISO Files/' ssbm-unpacked/P-GALE/files
+    mv Additional\ ISO\ Files ssbm-unpacked/P-GALE/files
 
     wit copy ssbm-unpacked uncle-punch.iso
   '';

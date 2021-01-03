@@ -1,6 +1,6 @@
 { stdenv, gcc, slippiDesktopApp ? false, playbackSlippi, fetchFromGitHub
 , mesa_drivers, mesa_glu, mesa, pkgconfig, cmake, bluez, ffmpeg, libao, libGLU
-, gtk3, glib, gettext, xorg, readline, openal, libevdev, portaudio, libusb
+, gtk2, gtk3, glib, gettext, xorg, readline, openal, libevdev, portaudio, libusb
 , libpulseaudio, libudev, gnumake, wxGTK30, gdk-pixbuf, soundtouch, miniupnpc
 , mbedtls, curl, lzo, sfml, enet, xdg_utils, hidapi, webkit }:
 stdenv.mkDerivation rec {
@@ -25,6 +25,9 @@ stdenv.mkDerivation rec {
     "-DGTK3_GDKCONFIG_INCLUDE_DIR=${gtk3.out}/lib/gtk-3.0/include"
     "-DGTK3_INCLUDE_DIRS=${gtk3.out}/lib/gtk-3.0"
     "-DENABLE_LTO=True"
+    "-DGTK2_GLIBCONFIG_INCLUDE_DIR=${glib.out}/lib/glib-2.0/include"
+    "-DGTK2_GDKCONFIG_INCLUDE_DIR=${gtk2.out}/lib/gtk-2.0/include"
+    "-DGTK2_INCLUDE_DIRS=${gtk2}/lib/gtk-2.0"
   ] ++ stdenv.lib.optional (playbackSlippi) "-DIS_PLAYBACK=true";
 
   postBuild = with stdenv.lib;
@@ -71,6 +74,7 @@ stdenv.mkDerivation rec {
     libudev
     gnumake
     wxGTK30
+    gtk2
     gtk3
     gdk-pixbuf
     soundtouch
