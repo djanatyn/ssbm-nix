@@ -17,6 +17,22 @@
 
     overlay = final: prev: import ./overlay.nix { inherit slippi-desktop final prev; };
 
+    apps = forAllSystems (system: let
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [ self.overlay ];
+      };
+    in {
+      slippi-netplay = {
+        type = "app";
+        program = "${pkgs.slippi-netplay}/bin/slippi-netplay";
+      };
+      slippi-playback = {
+        type = "app";
+        program = "${pkgs.slippi-playback}/bin/slippi-playback";
+      };
+    });
+
     packages = forAllSystems (system: let
         pkgs = import nixpkgs {
           inherit system;
