@@ -1,19 +1,45 @@
-self: super: {
-  wiimms-iso-tools = super.wiimms-iso-tools.overrideAttrs (oldAttrs: rec {
-    version = "3.03b";
+{ ssbm ? /nix/store/dckcn24c8rxnmxlmcl69vdadhhyxzifi-ssbm
+, slippi-desktop
+, final
+, prev }:
 
-    src = super.fetchFromGitHub {
-      owner = "Wiimm";
-      repo = "wiimms-iso-tools";
-      rev = "7f41a7f1edf2bd1698482cafe1b10f6b87b73da7";
-      sha256 = "1vhsi87vwjnmvnwjw8gnqqh9wishzcx885kwxm5j51zizl1mhqi9";
+with final.pkgs; rec {
+
+  wiimms-iso-tools = callPackage ./wit { };
+
+  gecko = callPackage ./gecko { };
+
+  powerpc-eabi-assembling = callPackage ./powerpc-eabi-as { };
+
+  uncle-punch =
+    callPackage ./uncle-punch { inherit ssbm gecko powerpc-eabi-assembling wiimms-iso-tools; };
+
+  slippi-playback = callPackage ./slippi {
+    playbackSlippi = true;
+    slippiDesktopApp = slippi-desktop;
+  };
+
+  slippi-netplay = callPackage ./slippi { playbackSlippi = false; };
+
+  slippi-netplay-chat-edition = slippi-netplay.overrideAttrs (oldAttrs: rec {
+    pname = "slippi-ishiiruka-chat";
+    version = "release/2.3.0";
+    name = pname;
+
+    src = fetchFromGitHub {
+      owner = "project-slippi";
+      repo = "Ishiiruka";
+      rev = version;
+      sha256 = "1rd449s00dqmngp3mrapg91k4hhg2kyc0kizc37vb4l2zswpkqah";
     };
-
-    sourceRoot = "source/project";
-
-    postPatch = ''
-      sed -ie 's|/usr/bin/env|${super.coreutils}/bin/env|' gen-template.sh
-      sed -ie 's|/usr/bin/env|${super.coreutils}/bin/env|' gen-text-file.sh
-    '';
   });
+
+  gcmtool = callPackage ./gcmtool { };
+
+  projectplus-sdcard = callPackage ./pplus/sdcard.nix { };
+
+  projectplus-config = callPackage ./pplus/config.nix { };
+
+  projectplus-slippi = callPackage ./pplus/slippi.nix { };
+
 }
