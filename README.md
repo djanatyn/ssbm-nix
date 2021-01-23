@@ -2,9 +2,12 @@
 Nix expressions for Super Smash Bros. Melee players.
 
 Goals:
+* Support Slippi Netplay + Playback on NixOS
 * Patch character skins and level textures, declaratively and reproducibly
 * Build common training mods (UnclePunch, 20XX Hack Pack)
-* Support Slippi Netplay + Playback on NixOS
+
+# Playing Slippi Online!
+Either run `slippi-netplay -u $favoredConfigDirectory` where `$favoredConfigDirectory` is a folder you are happy keeping game settings (such as your authentication token for slippi) in, or run the 'Slippi Netplay' desktop entry, which will locate your config directory in `~/.config/slippi-playback`. Then locate your melee iso, and play.
 
 # Setup
 This toolkit expects a GALE01 NTSC v1.02 ISO:
@@ -33,7 +36,7 @@ warning: dumping very large path (> 256 MiB); this may run out of memory
 ## TODO
 ### Playing Melee
 * [X] [slippi-netplay](https://github.com/project-slippi/Ishiiruka/pull/164)
-* [ ] [slippi-playback](https://github.com/project-slippi/Ishiiruka/pull/164)
+* [X] [slippi-playback](https://github.com/project-slippi/Ishiiruka/pull/164)
 
 ### Tooling
 * [X] Package JLaferri/gecko

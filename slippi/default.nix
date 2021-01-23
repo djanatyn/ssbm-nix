@@ -7,7 +7,7 @@ let
 
   netplay-desktop = makeDesktopItem {
     name = "Slippi Online";
-    exec = "slippi-netplay -u $HOME/.config/slippi-playback";
+    exec = "slippi-netplay -u $HOME/.config/slippi-netplay";
     comment = "Play Melee Online!";
     desktopName = "Slippi-Netplay";
     genericName = "Wii/GameCube Emulator";
