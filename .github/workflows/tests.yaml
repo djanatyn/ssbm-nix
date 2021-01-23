@@ -1,0 +1,12 @@
+name: tests
+
+on: push
+
+jobs:
+  check:
+    name: Validate flake
+    container: docker://nixpkgs/nix-flakes
+    steps:
+    - name: `nix flake check`
+      run: nix flake check --experimental-features flakes
+
