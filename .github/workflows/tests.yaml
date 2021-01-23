@@ -5,6 +5,7 @@ on: push
 jobs:
   check:
     name: Validate flake
+    runs-on: ubuntu-latest
     container: docker://nixpkgs/nix-flakes
     steps:
     - name: Run nix flake check
