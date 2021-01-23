@@ -1,4 +1,4 @@
-{ ssbm ? /nix/store/dckcn24c8rxnmxlmcl69vdadhhyxzifi-ssbm
+{ ssbm
 , slippi-desktop
 , final
 , prev }:
@@ -35,11 +35,5 @@ with final.pkgs; rec {
   });
 
   gcmtool = callPackage ./gcmtool { };
-
-  projectplus-sdcard = callPackage ./pplus/sdcard.nix { };
-
-  projectplus-config = callPackage ./pplus/config.nix { };
-
-  projectplus-slippi = callPackage ./pplus/slippi.nix { };
 
 }

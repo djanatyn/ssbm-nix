@@ -3,11 +3,13 @@
   inputs = {
     slippi-desktop.url = "github:project-slippi/slippi-desktop-app";
     slippi-desktop.flake = false;
+    ssbm.url = "/nix/store/jpmyl6gwsa40wxhj69xm65ylxg21226n-melee-0e63d4223b01d9aba596259dc155a174.iso";
+    ssbm.flake = false;
   };
 
   description = "Nix expressions for Super Smash Bros. Melee players.";
 
-  outputs = { self, nixpkgs, nix, slippi-desktop, ... }@inputs:
+  outputs = { self, nixpkgs, nix, ssbm, slippi-desktop, ... }@inputs:
   let
 
     supportedSystems = [ "x86_64-linux" ];
@@ -15,7 +17,7 @@
 
   in {
 
-    overlay = final: prev: import ./overlay.nix { inherit slippi-desktop final prev; };
+    overlay = final: prev: import ./overlay.nix { inherit ssbm slippi-desktop final prev; };
 
     apps = forAllSystems (system: let
       pkgs = import nixpkgs {

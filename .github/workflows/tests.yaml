@@ -8,9 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     container: docker://nixpkgs/nix-flakes
     steps:
+    - uses: actions/checkout@v2
     - name: Run nix flake check
       run: |
-        pwd
-        ls -la
         nix flake check --experimental-features 'flakes nix-command'
 

@@ -67,7 +67,8 @@
       "inputs": {
         "nix": "nix",
         "nixpkgs": "nixpkgs_2",
-        "slippi-desktop": "slippi-desktop"
+        "slippi-desktop": "slippi-desktop",
+        "ssbm": "ssbm"
       }
     },
     "slippi-desktop": {
@@ -84,6 +85,18 @@
         "owner": "project-slippi",
         "repo": "slippi-desktop-app",
         "type": "github"
+      }
+    },
+    "ssbm": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-p+7P7bUjp3NNqmm8oFbS4LRNM9AuYkilTTqgLXbwiLw=",
+        "path": "/nix/store/jpmyl6gwsa40wxhj69xm65ylxg21226n-melee-0e63d4223b01d9aba596259dc155a174.iso",
+        "type": "path"
+      },
+      "original": {
+        "path": "/nix/store/jpmyl6gwsa40wxhj69xm65ylxg21226n-melee-0e63d4223b01d9aba596259dc155a174.iso",
+        "type": "path"
       }
     }
   },

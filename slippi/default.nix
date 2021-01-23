@@ -5,14 +5,14 @@
 , mbedtls, curl, lzo, sfml, enet, xdg_utils, hidapi, webkit }:
 stdenv.mkDerivation rec {
   pname = "slippi-ishiiruka";
-  version = "2.2.5";
+  version = "2.2.5-gitpatch";
   name =
     "${pname}-${version}-${if playbackSlippi then "playback" else "netplay"}";
   src = fetchFromGitHub {
     owner = "project-slippi";
     repo = "Ishiiruka";
-    rev = "v${version}";
-    sha256 = "02n2967rhbzcxb64392644c0g3x2q72ks4chdmawdanwij64a2z8";
+    rev = "026a376cb762880da693531c2de048a678a0b392";
+    sha256 = "d3eb539a556352f3f47881d71fb0e5777b2f3e9a4251d283c18c67ce996774b7";
   };
 
   outputs = [ "out" ];
