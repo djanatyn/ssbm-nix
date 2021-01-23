@@ -7,6 +7,6 @@ jobs:
     name: Validate flake
     container: docker://nixpkgs/nix-flakes
     steps:
-    - name: `nix flake check`
+    - name: Run nix flake check
       run: nix flake check --experimental-features flakes
 
