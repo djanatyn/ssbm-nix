@@ -9,5 +9,5 @@ jobs:
     container: docker://nixpkgs/nix-flakes
     steps:
     - name: Run nix flake check
-      run: nix flake check --experimental-features flakes
+      run: nix flake check --experimental-features flakes --experimental-features nix-command
 
