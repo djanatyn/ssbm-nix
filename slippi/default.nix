@@ -1,9 +1,31 @@
-{ stdenv, gcc, slippiDesktopApp ? false, playbackSlippi, fetchFromGitHub
+{ stdenv, makeDesktopItem, gcc, slippiDesktopApp ? false, playbackSlippi, fetchFromGitHub, makeWrapper
 , mesa_drivers, mesa_glu, mesa, pkgconfig, cmake, bluez, ffmpeg, libao, libGLU
-, gtk2, gtk3, glib, gettext, xorg, readline, openal, libevdev, portaudio, libusb
+, gtk2, gtk3, glib, glib-networking, gettext, xorg, readline, openal, libevdev, portaudio, libusb
 , libpulseaudio, libudev, gnumake, wxGTK30, gdk-pixbuf, soundtouch, miniupnpc
-, mbedtls, curl, lzo, sfml, enet, xdg_utils, hidapi, webkit }:
-stdenv.mkDerivation rec {
+, mbedtls, curl, lzo, sfml, enet, xdg_utils, hidapi, webkit, vulkan-loader }:
+let
+
+  netplay-desktop = makeDesktopItem {
+    name = "Slippi Online";
+    exec = "slippi-netplay -u $HOME/.config/slippi-playback";
+    comment = "Play Melee Online!";
+    desktopName = "Slippi-Netplay";
+    genericName = "Wii/GameCube Emulator";
+    categories = "Game;Emulator;";
+    startupNotify = "false";
+  };
+
+  playback-desktop = makeDesktopItem {
+    name = "Slippi Playback";
+    exec = "slippi-playback";
+    comment = "Watch Your Slippi Replays";
+    desktopName = "Slippi-Playback";
+    genericName = "Wii/GameCube Emulator";
+    categories = "Game;Emulator;";
+    startupNotify = "false";
+  };
+
+in stdenv.mkDerivation rec {
   pname = "slippi-ishiiruka";
   version = "2.2.5-gitpatch";
   name =
@@ -12,7 +34,7 @@ stdenv.mkDerivation rec {
     owner = "project-slippi";
     repo = "Ishiiruka";
     rev = "026a376cb762880da693531c2de048a678a0b392";
-    sha256 = "d3eb539a556352f3f47881d71fb0e5777b2f3e9a4251d283c18c67ce996774b7";
+    sha256 = "sa8MzIIO3/uDNuLJf54v+DxxKGXmX0B3TsaNpJRt6OM=";
   };
 
   outputs = [ "out" ];
@@ -22,10 +44,12 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DLINUX_LOCAL_DEV=true"
     "-DGTK3_GLIBCONFIG_INCLUDE_DIR=${glib.out}/lib/glib-3.0/include"
+    "-DGTK3_GLIBCONFIG_INCLUDE_DIR=${glib-networking.out}/lib/glib-3.0/include"
     "-DGTK3_GDKCONFIG_INCLUDE_DIR=${gtk3.out}/lib/gtk-3.0/include"
     "-DGTK3_INCLUDE_DIRS=${gtk3.out}/lib/gtk-3.0"
     "-DENABLE_LTO=True"
     "-DGTK2_GLIBCONFIG_INCLUDE_DIR=${glib.out}/lib/glib-2.0/include"
+    "-DGTK2_GLIBCONFIG_INCLUDE_DIR=${glib-networking.out}/lib/glib-2.0/include"
     "-DGTK2_GDKCONFIG_INCLUDE_DIR=${gtk2.out}/lib/gtk-2.0/include"
     "-DGTK2_INCLUDE_DIRS=${gtk2}/lib/gtk-2.0"
   ] ++ stdenv.lib.optional (playbackSlippi) "-DIS_PLAYBACK=true";
@@ -43,12 +67,20 @@ stdenv.mkDerivation rec {
 
   installPhase = if playbackSlippi then ''
     ln -s $out/dolphin-emu $out/bin/slippi-playback
+    ln -s ${playback-desktop}/share/applications $out/share
   '' else ''
+    wrapProgram "$out/dolphin-emu" \
+      --set "GDK_BACKEND" "x11" \
+      --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules" \
+      --prefix LD_LIBRARY_PATH : "${vulkan-loader}/lib"
     ln -s $out/dolphin-emu $out/bin/slippi-netplay
+    ln -s ${netplay-desktop}/share/applications $out/share
   '';
 
   nativeBuildInputs = [ pkgconfig cmake ];
   buildInputs = [
+    vulkan-loader
+    makeWrapper
     mesa_drivers
     mesa_glu
     mesa
@@ -58,6 +90,7 @@ stdenv.mkDerivation rec {
     libao
     libGLU
     glib
+    glib-networking
     gettext
     xorg.libpthreadstubs
     xorg.libXrandr

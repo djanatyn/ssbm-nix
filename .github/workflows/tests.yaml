@@ -5,7 +5,7 @@ on: push
 jobs:
   check:
     name: Validate flake
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container:
       image: nixpkgs/nix-flakes
     steps:

@@ -36,4 +36,7 @@ with final.pkgs; rec {
 
   gcmtool = callPackage ./gcmtool { };
 
+  projectplus-sdcard = callPackage ./pplus/sdcard.nix { };
+  projectplus-config = callPackage ./pplus/config.nix { };
+
 }
