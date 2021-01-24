@@ -3,8 +3,6 @@
   inputs = {
     slippi-desktop.url = "github:project-slippi/slippi-desktop-app";
     slippi-desktop.flake = false;
-    ssbm.url = "/nix/store/jpmyl6gwsa40wxhj69xm65ylxg21226n-melee-0e63d4223b01d9aba596259dc155a174.iso";
-    ssbm.flake = false;
   };
 
   description = "Nix expressions for Super Smash Bros. Melee players.";
@@ -46,7 +44,6 @@
         slippi-playback = pkgs.slippi-playback;
         gecko = pkgs.gecko;
         powerpc-eabi-assembling = pkgs.powerpc-eabi-assembling;
-        uncle-punch = pkgs.uncle-punch;
         slippi-netplay-chat-edition = pkgs.slippi-netplay-chat-edition;
         gcmtool = pkgs.gcmtool;
         projectplus-sdcard = pkgs.projectplus-sdcard;
