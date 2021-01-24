@@ -50,12 +50,13 @@
         projectplus-config = pkgs.projectplus-config;
     });
 
-    nixosModule = { config, ... }:
+    nixosModule = { pkgs, config, ... }:
     let
       cfg = config.ssbm;
     in with nixpkgs.lib; {
 
       options = {
+        ssbm.overlay.enable = mkEnableOption "Activate the package overlay.";
         ssbm.cache.enable = mkEnableOption "Turn on cache.";
         ssbm.gcc.oc-kmod.enable = mkEnableOption "Turn on overclocking kernel module.";
         ssbm.gcc.rules.enable = mkEnableOption "Turn on rules for your gamecube controller adapter.";
@@ -66,7 +67,8 @@
         };
       };
       config = {
-        services.udev.extraRules = mkIf cfg.gcc.rules.enable cfg.controller.rules.rules;
+        nixpkgs.overlays = [ (mkIf cfg.overlay.enable self.overlay) ];
+        services.udev.extraRules = mkIf cfg.gcc.rules.enable cfg.gcc.rules.rules;
         boot.extraModulePackages = mkIf cfg.gcc.oc-kmod.enable [
           pkgs.linuxPackages.gcadapter-oc-kmod
         ];
