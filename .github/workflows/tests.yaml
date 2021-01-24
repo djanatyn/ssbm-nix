@@ -15,5 +15,7 @@ jobs:
           experimental-features = nix-command flakes
     - name: Run nix flake check
       run: |
+        ls
+        pwd
         nix flake check --experimental-features 'flakes nix-command'
 
