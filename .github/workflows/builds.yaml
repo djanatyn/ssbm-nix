@@ -15,7 +15,7 @@ jobs:
           experimental-features = nix-command flakes
     - uses: cachix/cachix-action@v8
       with:
-        name: mycache
+        name: ssbm-nix
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Run nix flake check
       run: |
@@ -23,14 +23,14 @@ jobs:
         pwd
         nix flake check --experimental-features 'flakes nix-command'
     - name: Build Wiimm's Iso Tools
-      run: nix build .#wiimms-iso-tools
+      run: nix build -L .#wiimms-iso-tools
     - name: Build Slippi Netplay
-      run: nix build .#slippi-netplay
+      run: nix build -L .#slippi-netplay
     - name: Build Slippi Playback
-      run: nix build .#slippi-playback
+      run: nix build -L .#slippi-playback
     - name: Build Gecko Tools
-      run: nix build .#gecko
+      run: nix build -L .#gecko
     - name: Build PowerPC-EABI-Assembling
-      run: nix build .#powerpc-eabi-assembling
+      run: nix build -L .#powerpc-eabi-assembling
     - name: Build GCMTool
-      run: nix build .#gcmtool
+      run: nix build -L .#gcmtool
