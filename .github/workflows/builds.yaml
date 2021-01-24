@@ -18,8 +18,8 @@ jobs:
           experimental-features = nix-command flakes
     - uses: cachix/cachix-action@v8
       with:
-        name: ssbm-nix
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+        name: mycache
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Build Wiimm's Iso Tools
       run: nix build .#wiimms-iso-tools
     - name: Build Slippi Netplay
