@@ -52,19 +52,28 @@
 
     nixosModule = { config, ... }:
     let
-      cfg = config.gc;
+      cfg = config.ssbm;
     in with nixpkgs.lib; {
 
       options = {
-        gc.controller.rules.enable = mkEnableOption "Turn on rules for your gamecube controller adapter.";
-        gc.controller.rules.rules = mkOption {
+        ssbm.cache.enable = mkEnableOption "Turn on cache.";
+        ssbm.gcc.oc-kmod.enable = mkEnableOption "Turn on overclocking kernel module.";
+        ssbm.gcc.rules.enable = mkEnableOption "Turn on rules for your gamecube controller adapter.";
+        ssbm.gcc.rules.rules = mkOption {
           default = readFile ./gcc.rules;
           type = types.lines;
-          description = "To be appended to services.udev.extraRules if gc.controller.rules.enable is set.";
+          description = "To be appended to services.udev.extraRules if gcc.rules.enable is set.";
         };
       };
       config = {
-        services.udev.extraRules = mkIf cfg.controller.rules.enable cfg.controller.rules.rules;
+        services.udev.extraRules = mkIf cfg.gcc.rules.enable cfg.controller.rules.rules;
+        boot.extraModulePackages = mkIf cfg.gcc.oc-kmod.enable [
+          pkgs.linuxPackages.gcadapter-oc-kmod
+        ];
+        nix = mkIf cfg.cache.enable {
+          binaryCaches = [ "https://ssbm-nix.cachix.org" ];
+          binaryCachePublicKeys = [ "ssbm-nix.cachix.org-1:YN104LKAWaKQIecOphkftXgXlYZVK/IRHM1UD7WAIew=" ];
+        };
       };
 
     };
