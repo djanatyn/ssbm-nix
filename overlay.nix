@@ -1,5 +1,4 @@
-{ ssbm
-, slippi-desktop
+{ slippi-desktop
 , final
 , prev }:
 
@@ -10,9 +9,6 @@ with final.pkgs; rec {
   gecko = callPackage ./gecko { };
 
   powerpc-eabi-assembling = callPackage ./powerpc-eabi-as { };
-
-  uncle-punch =
-    callPackage ./uncle-punch { inherit ssbm gecko powerpc-eabi-assembling wiimms-iso-tools; };
 
   slippi-playback = callPackage ./slippi {
     playbackSlippi = true;

@@ -7,7 +7,7 @@
 
   description = "Nix expressions for Super Smash Bros. Melee players.";
 
-  outputs = { self, nixpkgs, nix, ssbm, slippi-desktop, ... }@inputs:
+  outputs = { self, nixpkgs, nix, slippi-desktop, ... }@inputs:
   let
 
     supportedSystems = [ "x86_64-linux" ];
@@ -15,7 +15,7 @@
 
   in {
 
-    overlay = final: prev: import ./overlay.nix { inherit ssbm slippi-desktop final prev; };
+    overlay = final: prev: import ./overlay.nix { inherit slippi-desktop final prev; };
 
     apps = forAllSystems (system: let
       pkgs = import nixpkgs {

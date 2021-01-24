@@ -66,6 +66,11 @@ in stdenv.mkDerivation rec {
     '';
 
   installPhase = if playbackSlippi then ''
+    wrapProgram "$out/dolphin-emu" \
+      --set "GDK_BACKEND" "x11" \
+      --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules" \
+      --prefix LD_LIBRARY_PATH : "${vulkan-loader}/lib"
+      --add-flags '-u $HOME/.config/slippi-playback'
     ln -s $out/dolphin-emu $out/bin/slippi-playback
     ln -s ${playback-desktop}/share/applications $out/share
   '' else ''
