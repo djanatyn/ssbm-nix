@@ -11,11 +11,13 @@ with final.pkgs; rec {
   powerpc-eabi-assembling = callPackage ./powerpc-eabi-as { };
 
   slippi-playback = callPackage ./slippi {
+    inherit slippi-desktop;
     playbackSlippi = true;
-    slippiDesktopApp = slippi-desktop;
   };
 
-  slippi-netplay = callPackage ./slippi { playbackSlippi = false; };
+  slippi-netplay = callPackage ./slippi {
+    inherit slippi-desktop;
+    playbackSlippi = false; };
 
   slippi-netplay-chat-edition = slippi-netplay.overrideAttrs (oldAttrs: rec {
     pname = "slippi-ishiiruka-chat";

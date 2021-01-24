@@ -1,4 +1,4 @@
-{ stdenv, makeDesktopItem, gcc, slippiDesktopApp ? false, playbackSlippi, fetchFromGitHub, makeWrapper
+{ stdenv, makeDesktopItem, gcc, slippi-desktop, playbackSlippi, fetchFromGitHub, makeWrapper
 , mesa_drivers, mesa_glu, mesa, pkgconfig, cmake, bluez, ffmpeg, libao, libGLU
 , gtk2, gtk3, glib, glib-networking, gettext, xorg, readline, openal, libevdev, portaudio, libusb
 , libpulseaudio, libudev, gnumake, wxGTK30, gdk-pixbuf, soundtouch, miniupnpc
@@ -57,7 +57,7 @@ in stdenv.mkDerivation rec {
   postBuild = with stdenv.lib;
     optionalString playbackSlippi ''
       rm -rf ../Data/Sys/GameSettings
-      cp -r "${slippiDesktopApp}/app/dolphin-dev/overwrite/Sys/GameSettings" ../Data/Sys
+      cp -r "${slippi-desktop}/app/dolphin-dev/overwrite/Sys/GameSettings" ../Data/Sys
     '' + ''
       touch Binaries/portable.txt
       cp -r -n ../Data/Sys/ Binaries/
