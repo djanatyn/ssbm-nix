@@ -37,4 +37,8 @@ with final.pkgs; rec {
   projectplus-sdcard = callPackage ./pplus/sdcard.nix { };
   projectplus-config = callPackage ./pplus/config.nix { };
 
+  dat-texture-wizard = callPackage ./dtw { inherit cxfreeze; };
+
+  cxfreeze = callPackage ./dtw/cxfreeze.nix { };
+
 }

@@ -1,6 +1,7 @@
 {
 
   inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-20.09";
     slippi-desktop.url = "github:project-slippi/slippi-desktop-app";
     slippi-desktop.flake = false;
   };
@@ -48,6 +49,7 @@
         gcmtool = pkgs.gcmtool;
         projectplus-sdcard = pkgs.projectplus-sdcard;
         projectplus-config = pkgs.projectplus-config;
+        /* dat-texture-wizard = pkgs.dat-texture-wizard; */
     });
 
     nixosModule = { pkgs, config, ... }:

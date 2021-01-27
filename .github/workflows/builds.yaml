@@ -19,8 +19,6 @@ jobs:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Run nix flake check
       run: |
-        ls
-        pwd
         nix flake check --experimental-features 'flakes nix-command'
     - name: Build Wiimm's Iso Tools
       run: nix build -L .#wiimms-iso-tools
