@@ -1,5 +1,4 @@
-{ ssbm ? /nix/store/dckcn24c8rxnmxlmcl69vdadhhyxzifi-ssbm
-, slippi-desktop
+{ slippi-desktop
 , final
 , prev }:
 
@@ -11,15 +10,14 @@ with final.pkgs; rec {
 
   powerpc-eabi-assembling = callPackage ./powerpc-eabi-as { };
 
-  uncle-punch =
-    callPackage ./uncle-punch { inherit ssbm gecko powerpc-eabi-assembling wiimms-iso-tools; };
-
   slippi-playback = callPackage ./slippi {
+    inherit slippi-desktop;
     playbackSlippi = true;
-    slippiDesktopApp = slippi-desktop;
   };
 
-  slippi-netplay = callPackage ./slippi { playbackSlippi = false; };
+  slippi-netplay = callPackage ./slippi {
+    inherit slippi-desktop;
+    playbackSlippi = false; };
 
   slippi-netplay-chat-edition = slippi-netplay.overrideAttrs (oldAttrs: rec {
     pname = "slippi-ishiiruka-chat";
@@ -37,9 +35,10 @@ with final.pkgs; rec {
   gcmtool = callPackage ./gcmtool { };
 
   projectplus-sdcard = callPackage ./pplus/sdcard.nix { };
-
   projectplus-config = callPackage ./pplus/config.nix { };
 
-  projectplus-slippi = callPackage ./pplus/slippi.nix { };
+  dat-texture-wizard = callPackage ./dtw { inherit cxfreeze; };
+
+  cxfreeze = callPackage ./dtw/cxfreeze.nix { };
 
 }

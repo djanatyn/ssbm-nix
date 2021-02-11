@@ -1,18 +1,40 @@
-{ stdenv, gcc, slippiDesktopApp ? false, playbackSlippi, fetchFromGitHub
+{ stdenv, makeDesktopItem, gcc, slippi-desktop, playbackSlippi, fetchFromGitHub, makeWrapper
 , mesa_drivers, mesa_glu, mesa, pkgconfig, cmake, bluez, ffmpeg, libao, libGLU
-, gtk2, gtk3, glib, gettext, xorg, readline, openal, libevdev, portaudio, libusb
+, gtk2, gtk3, glib, glib-networking, gettext, xorg, readline, openal, libevdev, portaudio, libusb
 , libpulseaudio, libudev, gnumake, wxGTK30, gdk-pixbuf, soundtouch, miniupnpc
-, mbedtls, curl, lzo, sfml, enet, xdg_utils, hidapi, webkit }:
-stdenv.mkDerivation rec {
+, mbedtls, curl, lzo, sfml, enet, xdg_utils, hidapi, webkit, vulkan-loader }:
+let
+
+  netplay-desktop = makeDesktopItem {
+    name = "Slippi Online";
+    exec = "slippi-netplay";
+    comment = "Play Melee Online!";
+    desktopName = "Slippi-Netplay";
+    genericName = "Wii/GameCube Emulator";
+    categories = "Game;Emulator;";
+    startupNotify = "false";
+  };
+
+  playback-desktop = makeDesktopItem {
+    name = "Slippi Playback";
+    exec = "slippi-playback";
+    comment = "Watch Your Slippi Replays";
+    desktopName = "Slippi-Playback";
+    genericName = "Wii/GameCube Emulator";
+    categories = "Game;Emulator;";
+    startupNotify = "false";
+  };
+
+in stdenv.mkDerivation rec {
   pname = "slippi-ishiiruka";
-  version = "2.2.5";
+  version = "2.2.5-gitpatch";
   name =
     "${pname}-${version}-${if playbackSlippi then "playback" else "netplay"}";
   src = fetchFromGitHub {
     owner = "project-slippi";
     repo = "Ishiiruka";
-    rev = "v${version}";
-    sha256 = "02n2967rhbzcxb64392644c0g3x2q72ks4chdmawdanwij64a2z8";
+    rev = "026a376cb762880da693531c2de048a678a0b392";
+    sha256 = "sa8MzIIO3/uDNuLJf54v+DxxKGXmX0B3TsaNpJRt6OM=";
   };
 
   outputs = [ "out" ];
@@ -22,10 +44,12 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DLINUX_LOCAL_DEV=true"
     "-DGTK3_GLIBCONFIG_INCLUDE_DIR=${glib.out}/lib/glib-3.0/include"
+    "-DGTK3_GLIBCONFIG_INCLUDE_DIR=${glib-networking.out}/lib/glib-3.0/include"
     "-DGTK3_GDKCONFIG_INCLUDE_DIR=${gtk3.out}/lib/gtk-3.0/include"
     "-DGTK3_INCLUDE_DIRS=${gtk3.out}/lib/gtk-3.0"
     "-DENABLE_LTO=True"
     "-DGTK2_GLIBCONFIG_INCLUDE_DIR=${glib.out}/lib/glib-2.0/include"
+    "-DGTK2_GLIBCONFIG_INCLUDE_DIR=${glib-networking.out}/lib/glib-2.0/include"
     "-DGTK2_GDKCONFIG_INCLUDE_DIR=${gtk2.out}/lib/gtk-2.0/include"
     "-DGTK2_INCLUDE_DIRS=${gtk2}/lib/gtk-2.0"
   ] ++ stdenv.lib.optional (playbackSlippi) "-DIS_PLAYBACK=true";
@@ -33,7 +57,7 @@ stdenv.mkDerivation rec {
   postBuild = with stdenv.lib;
     optionalString playbackSlippi ''
       rm -rf ../Data/Sys/GameSettings
-      cp -r "${slippiDesktopApp}/app/dolphin-dev/overwrite/Sys/GameSettings" ../Data/Sys
+      cp -r "${slippi-desktop}/app/dolphin-dev/overwrite/Sys/GameSettings" ../Data/Sys
     '' + ''
       touch Binaries/portable.txt
       cp -r -n ../Data/Sys/ Binaries/
@@ -42,13 +66,27 @@ stdenv.mkDerivation rec {
     '';
 
   installPhase = if playbackSlippi then ''
+    wrapProgram "$out/dolphin-emu" \
+      --set "GDK_BACKEND" "x11" \
+      --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules" \
+      --prefix LD_LIBRARY_PATH : "${vulkan-loader}/lib" \
+      --add-flags '-u $HOME/.config/slippi-playback'
     ln -s $out/dolphin-emu $out/bin/slippi-playback
+    ln -s ${playback-desktop}/share/applications $out/share
   '' else ''
+    wrapProgram "$out/dolphin-emu" \
+      --set "GDK_BACKEND" "x11" \
+      --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules" \
+      --prefix LD_LIBRARY_PATH : "${vulkan-loader}/lib" \
+      --add-flags '-u $HOME/.config/slippi-netplay'
     ln -s $out/dolphin-emu $out/bin/slippi-netplay
+    ln -s ${netplay-desktop}/share/applications $out/share
   '';
 
   nativeBuildInputs = [ pkgconfig cmake ];
   buildInputs = [
+    vulkan-loader
+    makeWrapper
     mesa_drivers
     mesa_glu
     mesa
@@ -58,6 +96,7 @@ stdenv.mkDerivation rec {
     libao
     libGLU
     glib
+    glib-networking
     gettext
     xorg.libpthreadstubs
     xorg.libXrandr
