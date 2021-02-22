@@ -59,7 +59,6 @@ in stdenv.mkDerivation rec {
       rm -rf ../Data/Sys/GameSettings
       cp -r "${slippi-desktop}/app/dolphin-dev/overwrite/Sys/GameSettings" ../Data/Sys
     '' + ''
-      touch Binaries/portable.txt
       cp -r -n ../Data/Sys/ Binaries/
       cp -r Binaries/ $out
       mkdir -p $out/bin
@@ -69,16 +68,14 @@ in stdenv.mkDerivation rec {
     wrapProgram "$out/dolphin-emu" \
       --set "GDK_BACKEND" "x11" \
       --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules" \
-      --prefix LD_LIBRARY_PATH : "${vulkan-loader}/lib" \
-      --add-flags '-u $HOME/.config/slippi-playback'
+      --prefix LD_LIBRARY_PATH : "${vulkan-loader}/lib"
     ln -s $out/dolphin-emu $out/bin/slippi-playback
     ln -s ${playback-desktop}/share/applications $out/share
   '' else ''
     wrapProgram "$out/dolphin-emu" \
       --set "GDK_BACKEND" "x11" \
       --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules" \
-      --prefix LD_LIBRARY_PATH : "${vulkan-loader}/lib" \
-      --add-flags '-u $HOME/.config/slippi-netplay'
+      --prefix LD_LIBRARY_PATH : "${vulkan-loader}/lib"
     ln -s $out/dolphin-emu $out/bin/slippi-netplay
     ln -s ${netplay-desktop}/share/applications $out/share
   '';
