@@ -41,4 +41,6 @@ with final.pkgs; rec {
 
   cxfreeze = callPackage ./dtw/cxfreeze.nix { };
 
+  keyb0xx = callPackage ./keyb0xx { };
+
 }

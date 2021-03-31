@@ -49,6 +49,7 @@
         gcmtool = pkgs.gcmtool;
         projectplus-sdcard = pkgs.projectplus-sdcard;
         projectplus-config = pkgs.projectplus-config;
+        keyb0xx = pkgs.keyb0xx;
         /* dat-texture-wizard = pkgs.dat-texture-wizard; */
     });
 
@@ -57,15 +58,23 @@
       cfg = config.ssbm;
     in with nixpkgs.lib; {
 
-      options = {
-        ssbm.overlay.enable = mkEnableOption "Activate the package overlay.";
-        ssbm.cache.enable = mkEnableOption "Turn on cache.";
-        ssbm.gcc.oc-kmod.enable = mkEnableOption "Turn on overclocking kernel module.";
-        ssbm.gcc.rules.enable = mkEnableOption "Turn on rules for your gamecube controller adapter.";
-        ssbm.gcc.rules.rules = mkOption {
+      options.ssbm = {
+        overlay.enable = mkEnableOption "Activate the package overlay.";
+        cache.enable = mkEnableOption "Turn on cache.";
+        gcc.oc-kmod.enable = mkEnableOption "Turn on overclocking kernel module.";
+        gcc.rules.enable = mkEnableOption "Turn on rules for your gamecube controller adapter.";
+        gcc.rules.rules = mkOption {
           default = readFile ./gcc.rules;
           type = types.lines;
           description = "To be appended to services.udev.extraRules if gcc.rules.enable is set.";
+        };
+        keyb0xx = {
+          enable = mkEnableOption "Add keyb0xx to your binary path";
+          config = mkOption {
+            default = readFile ./keyb0xx/config.h;
+            type = types.lines;
+            description = "Config.h file to compile keyb0xx with.";
+          };
         };
       };
       config = {
@@ -78,6 +87,7 @@
           binaryCaches = [ "https://ssbm-nix.cachix.org" ];
           binaryCachePublicKeys = [ "ssbm-nix.cachix.org-1:YN104LKAWaKQIecOphkftXgXlYZVK/IRHM1UD7WAIew=" ];
         };
+        environment.systemPackages = [ (mkIf cfg.keyb0xx.enable (pkgs.keyb0xx.override { keyb0xxconfig = cfg.keyb0xx.config; })) ];
       };
 
     };
