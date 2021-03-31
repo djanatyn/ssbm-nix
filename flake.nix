@@ -72,7 +72,7 @@
         nixpkgs.overlays = [ (mkIf cfg.overlay.enable self.overlay) ];
         services.udev.extraRules = mkIf cfg.gcc.rules.enable cfg.gcc.rules.rules;
         boot.extraModulePackages = mkIf cfg.gcc.oc-kmod.enable [
-          pkgs.linuxPackages.gcadapter-oc-kmod
+          config.boot.kernelPackages.gcadapter-oc-kmod
         ];
         nix = mkIf cfg.cache.enable {
           binaryCaches = [ "https://ssbm-nix.cachix.org" ];
