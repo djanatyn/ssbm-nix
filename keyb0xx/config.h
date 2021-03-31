@@ -7,29 +7,25 @@
 // * Starting on line 76 is where the keyboard codes exist
 
 
+#define INPUT_KEY_UP KEY_BACKSPACE
+#define INPUT_KEY_DOWN KEY_2
+#define INPUT_KEY_LEFT KEY_1
+#define INPUT_KEY_RIGHT KEY_3
 
-// LH: upper
-#define INPUT_KEY_L KEY_Q
-#define INPUT_KEY_LEFT KEY_W
-#define INPUT_KEY_DOWN KEY_E
-#define INPUT_KEY_RIGHT KEY_R
-#define INPUT_KEY_START KEY_5
-// lower
-#define INPUT_KEY_MOD_X KEY_C
+#define INPUT_KEY_C_UP KEY_L
+#define INPUT_KEY_C_DOWN KEY_RIGHTALT
+#define INPUT_KEY_C_LEFT KEY_COMMA
+#define INPUT_KEY_C_RIGHT KEY_SLASH
+
+#define INPUT_KEY_A KEY_DOT
+#define INPUT_KEY_B KEY_P
+#define INPUT_KEY_X KEY_MINUS
+#define INPUT_KEY_Y KEY_H
+#define INPUT_KEY_Z KEY_EQUAL
+#define INPUT_KEY_L KEY_GRAVE
+#define INPUT_KEY_R KEY_0
+
+#define INPUT_KEY_MOD_X KEY_F
 #define INPUT_KEY_MOD_Y KEY_V
-
-// RH: upper
-#define INPUT_KEY_R KEY_8
-#define INPUT_KEY_Y KEY_9
-// upper row 2
-#define INPUT_KEY_B KEY_I
-#define INPUT_KEY_X KEY_O
-#define INPUT_KEY_Z KEY_P
-#define INPUT_KEY_UP KEY_LEFTBRACE
-// lower cluster
-#define INPUT_KEY_C_DOWN KEY_SPACE
-#define INPUT_KEY_C_LEFT KEY_M
-#define INPUT_KEY_A KEY_COMMA
-#define INPUT_KEY_C_RIGHT KEY_DOT
-#define INPUT_KEY_C_UP KEY_K
+#define INPUT_KEY_START KEY_G
 
