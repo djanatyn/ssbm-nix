@@ -83,6 +83,14 @@
         boot.extraModulePackages = mkIf cfg.gcc.oc-kmod.enable [
           config.boot.kernelPackages.gcadapter-oc-kmod
         ];
+        systemd.services = mkIf cfg.gcc.oc-kmod.enable {
+          gcc-adapter-overclock = {
+            description = "Overclock GCC polling";
+            path = [ pkgs.kmod ];
+            script = "modprobe gcadapter_oc";
+            wantedBy = [ "default.target" ];
+          };
+        };
         nix = mkIf cfg.cache.enable {
           binaryCaches = [ "https://ssbm-nix.cachix.org" ];
           binaryCachePublicKeys = [ "ssbm-nix.cachix.org-1:YN104LKAWaKQIecOphkftXgXlYZVK/IRHM1UD7WAIew=" ];
