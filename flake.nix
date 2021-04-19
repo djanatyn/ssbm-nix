@@ -80,6 +80,7 @@
       config = {
         nixpkgs.overlays = [ (mkIf cfg.overlay.enable self.overlay) ];
         services.udev.extraRules = mkIf cfg.gcc.rules.enable cfg.gcc.rules.rules;
+        boot.kernelModules = mkIf cfg.gcc.oc-kmod.enable ["gcadapter_oc"];
         boot.extraModulePackages = mkIf cfg.gcc.oc-kmod.enable [
           config.boot.kernelPackages.gcadapter-oc-kmod
         ];
