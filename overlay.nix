@@ -8,6 +8,8 @@ with final.pkgs; rec {
 
   gecko = callPackage ./gecko { };
 
+  slippi-desktop = callPackage ./slippi-desktop { };
+
   powerpc-eabi-assembling = callPackage ./powerpc-eabi-as { };
 
   slippi-playback = callPackage ./slippi {

@@ -46,6 +46,7 @@
         gecko = pkgs.gecko;
         powerpc-eabi-assembling = pkgs.powerpc-eabi-assembling;
         slippi-netplay-chat-edition = pkgs.slippi-netplay-chat-edition;
+        slippi-desktop = pkgs.slippi-desktop;
         gcmtool = pkgs.gcmtool;
         projectplus-sdcard = pkgs.projectplus-sdcard;
         projectplus-config = pkgs.projectplus-config;
