@@ -27,14 +27,15 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "slippi-ishiiruka";
-  version = "2.2.6";
+  # this is 2.3.0 with an RNG desync fix
+  version = "unstable-2021-05-03";
   name =
     "${pname}-${version}-${if playbackSlippi then "playback" else "netplay"}";
   src = fetchFromGitHub {
     owner = "project-slippi";
     repo = "Ishiiruka";
-    rev = "v${version}";
-    sha256 = "sha256-c+lfctDIl6HK3nBfNiARkiHudJSxpgHpWCu98RyaptY=";
+    rev = "3a3267c2872c7a1dc198f3508a048d6c4c046bcf";
+    sha256 = "1ip624wf7wwlqiffgyy5lxvfpqyk74pfrrg1pgbh71q4kg2qpd8j";
   };
 
   outputs = [ "out" ];
