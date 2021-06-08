@@ -1,4 +1,4 @@
-{ stdenv, makeDesktopItem, gcc, slippi-desktop, playbackSlippi, fetchFromGitHub, makeWrapper
+{ stdenv, lib, makeDesktopItem, gcc, slippi-desktop, playbackSlippi, fetchFromGitHub, makeWrapper
 , mesa_drivers, mesa_glu, mesa, pkgconfig, cmake, bluez, ffmpeg, libao, libGLU
 , gtk2, gtk3, wrapGAppsHook, glib, glib-networking, gettext, xorg, readline, openal, libevdev, portaudio, libusb
 , libpulseaudio, libudev, gnumake, wxGTK30, gdk-pixbuf, soundtouch, miniupnpc
@@ -52,9 +52,9 @@ in stdenv.mkDerivation rec {
     "-DGTK2_GLIBCONFIG_INCLUDE_DIR=${glib-networking.out}/lib/glib-2.0/include"
     "-DGTK2_GDKCONFIG_INCLUDE_DIR=${gtk2.out}/lib/gtk-2.0/include"
     "-DGTK2_INCLUDE_DIRS=${gtk2}/lib/gtk-2.0"
-  ] ++ stdenv.lib.optional (playbackSlippi) "-DIS_PLAYBACK=true";
+  ] ++ lib.optional (playbackSlippi) "-DIS_PLAYBACK=true";
 
-  postBuild = with stdenv.lib;
+  postBuild = with lib;
     optionalString playbackSlippi ''
       rm -rf ../Data/Sys/GameSettings
       cp -r "${slippi-desktop}/app/dolphin-dev/overwrite/Sys/GameSettings" ../Data/Sys

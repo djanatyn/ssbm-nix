@@ -1,4 +1,4 @@
-{ stdenv, python2, ncurses }:
+{ stdenv, lib, python2, ncurses }:
 
 python2.pkgs.buildPythonPackage rec {
   pname = "cx_Freeze";
@@ -22,7 +22,7 @@ python2.pkgs.buildPythonPackage rec {
   # fails to find Console even though it exists on python 3.x
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A set of scripts and modules for freezing Python scripts into executables";
     homepage = "http://cx-freeze.sourceforge.net/";
     license = licenses.psfl;
