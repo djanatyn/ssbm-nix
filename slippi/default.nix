@@ -123,5 +123,6 @@ in stdenv.mkDerivation rec {
     xdg_utils
     hidapi
     webkit
+    xdg_utils
   ];
 }
