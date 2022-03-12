@@ -6,7 +6,7 @@
 let
 
   netplay-desktop = makeDesktopItem {
-    name = "Slippi Online";
+    name = "Slippi-Online";
     exec = "slippi-netplay";
     comment = "Play Melee Online!";
     desktopName = "Slippi-Netplay";
@@ -16,7 +16,7 @@ let
   };
 
   playback-desktop = makeDesktopItem {
-    name = "Slippi Playback";
+    name = "Slippi-Playback";
     exec = "slippi-playback";
     comment = "Watch Your Slippi Replays";
     desktopName = "Slippi-Playback";
