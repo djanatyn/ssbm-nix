@@ -11,7 +11,7 @@ let
     comment = "Play Melee Online!";
     desktopName = "Slippi-Netplay";
     genericName = "Wii/GameCube Emulator";
-    categories = "Game;Emulator;";
+    categories = [ "Game" "Emulator" ];
     startupNotify = "false";
   };
 
@@ -21,7 +21,7 @@ let
     comment = "Watch Your Slippi Replays";
     desktopName = "Slippi-Playback";
     genericName = "Wii/GameCube Emulator";
-    categories = "Game;Emulator;";
+    categories = [ "Game" "Emulator" ];
     startupNotify = "false";
   };
 
