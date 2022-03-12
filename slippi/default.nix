@@ -12,7 +12,7 @@ let
     desktopName = "Slippi-Netplay";
     genericName = "Wii/GameCube Emulator";
     categories = [ "Game" "Emulator" ];
-    startupNotify = "false";
+    startupNotify = false;
   };
 
   playback-desktop = makeDesktopItem {
@@ -22,7 +22,7 @@ let
     desktopName = "Slippi-Playback";
     genericName = "Wii/GameCube Emulator";
     categories = [ "Game" "Emulator" ];
-    startupNotify = "false";
+    startupNotify = false;
   };
 
 in stdenv.mkDerivation rec {
