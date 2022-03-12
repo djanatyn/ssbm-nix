@@ -2,7 +2,7 @@
 , mesa_drivers, mesa_glu, mesa, pkgconfig, cmake, bluez, ffmpeg, libao, libGLU
 , gtk2, gtk3, glib, gettext, xorg, readline, openal, libevdev, portaudio, libusb
 , libpulseaudio, udev, gnumake, wxGTK30, gdk-pixbuf, soundtouch, miniupnpc
-, mbedtls, curl, lzo, sfml, enet, xdg_utils, hidapi, webkit
+, mbedtls, curl, lzo, sfml, enet, xdg_utils, hidapi, webkitgtk
 , projectplus-sdcard, projectplus-config, tree }:
 stdenv.mkDerivation rec {
 
@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
     enet
     xdg_utils
     hidapi
-    webkit
+    webkitgtk
     projectplus-sdcard
     projectplus-config
     tree

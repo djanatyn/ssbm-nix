@@ -2,7 +2,7 @@
 , mesa_drivers, mesa_glu, mesa, pkgconfig, cmake, bluez, ffmpeg, libao, libGLU
 , gtk2, gtk3, wrapGAppsHook, glib, glib-networking, gettext, xorg, readline, openal, libevdev, portaudio, libusb
 , libpulseaudio, udev, gnumake, wxGTK30, gdk-pixbuf, soundtouch, miniupnpc
-, mbedtls, curl, lzo, sfml, enet, xdg_utils, hidapi, webkit, vulkan-loader }:
+, mbedtls, curl, lzo, sfml, enet, xdg_utils, hidapi, webkitgtk, vulkan-loader }:
 let
 
   netplay-desktop = makeDesktopItem {
@@ -122,6 +122,6 @@ in stdenv.mkDerivation rec {
     enet
     xdg_utils
     hidapi
-    webkit
+    webkitgtk
   ];
 }
