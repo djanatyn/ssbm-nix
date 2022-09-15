@@ -27,14 +27,14 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "slippi-ishiiruka";
-  version = "2.5.1";
+  version = "2.5.2";
   name =
     "${pname}-${version}-${if playbackSlippi then "playback" else "netplay"}";
   src = fetchFromGitHub {
     owner = "project-slippi";
     repo = "Ishiiruka";
     rev = "v${version}";
-    sha256 = "1ha3hv2lnmjhqn3vhbca6vm3l2p2v0mp94n1lgrvjfrn827g2kbx";
+    sha256 = "0wzcwf6q84xx08y5fqiwch4q3sjac85fsjvv9pjzk8263z1q7adw";
   };
 
   outputs = [ "out" ];
@@ -68,14 +68,16 @@ in stdenv.mkDerivation rec {
     wrapProgram "$out/dolphin-emu" \
       --set "GDK_BACKEND" "x11" \
       --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules" \
-      --prefix LD_LIBRARY_PATH : "${vulkan-loader}/lib"
+      --prefix LD_LIBRARY_PATH : "${vulkan-loader}/lib" \
+      --prefix PATH : "${xdg_utils}/bin"
     ln -s $out/dolphin-emu $out/bin/slippi-playback
     ln -s ${playback-desktop}/share/applications $out/share
   '' else ''
     wrapProgram "$out/dolphin-emu" \
       --set "GDK_BACKEND" "x11" \
       --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules" \
-      --prefix LD_LIBRARY_PATH : "${vulkan-loader}/lib"
+      --prefix LD_LIBRARY_PATH : "${vulkan-loader}/lib" \
+      --prefix PATH : "${xdg_utils}/bin"
     ln -s $out/dolphin-emu $out/bin/slippi-netplay
     ln -s ${netplay-desktop}/share/applications $out/share
   '';
