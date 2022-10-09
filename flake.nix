@@ -1,7 +1,7 @@
 {
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     slippi-desktop.url = "github:project-slippi/slippi-desktop-app";
     slippi-desktop.flake = false;
   };
