@@ -1,8 +1,8 @@
 { stdenv, lib, makeDesktopItem, gcc, slippi-desktop, playbackSlippi, fetchFromGitHub, makeWrapper
-, mesa_drivers, mesa_glu, mesa, pkgconfig, cmake, bluez, ffmpeg, libao, libGLU
-, gtk2, gtk3, wrapGAppsHook, glib, glib-networking, gettext, xorg, readline, openal, libevdev, portaudio, libusb
+, mesa, pkg-config, cmake, bluez, ffmpeg, libao, libGLU
+, gtk2, gtk3, wrapGAppsHook, glib, glib-networking, gettext, xorg, readline, openal, libevdev, portaudio, libusb1
 , libpulseaudio, udev, gnumake, wxGTK30, gdk-pixbuf, soundtouch, miniupnpc
-, mbedtls, curl, lzo, sfml, enet, xdg_utils, hidapi, webkitgtk, vulkan-loader }:
+, mbedtls, curl, lzo, sfml, enet, xdg-utils, hidapi, webkitgtk, vulkan-loader }:
 let
 
   netplay-desktop = makeDesktopItem {
@@ -69,7 +69,7 @@ in stdenv.mkDerivation rec {
       --set "GDK_BACKEND" "x11" \
       --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules" \
       --prefix LD_LIBRARY_PATH : "${vulkan-loader}/lib" \
-      --prefix PATH : "${xdg_utils}/bin"
+      --prefix PATH : "${xdg-utils}/bin"
     ln -s $out/dolphin-emu $out/bin/slippi-playback
     ln -s ${playback-desktop}/share/applications $out/share
   '' else ''
@@ -77,19 +77,18 @@ in stdenv.mkDerivation rec {
       --set "GDK_BACKEND" "x11" \
       --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules" \
       --prefix LD_LIBRARY_PATH : "${vulkan-loader}/lib" \
-      --prefix PATH : "${xdg_utils}/bin"
+      --prefix PATH : "${xdg-utils}/bin"
     ln -s $out/dolphin-emu $out/bin/slippi-netplay
     ln -s ${netplay-desktop}/share/applications $out/share
   '';
 
-  nativeBuildInputs = [ pkgconfig cmake wrapGAppsHook ];
+  nativeBuildInputs = [ pkg-config cmake wrapGAppsHook ];
   buildInputs = [
     vulkan-loader
     makeWrapper
-    mesa_drivers
-    mesa_glu
+    mesa.drivers
     mesa
-    pkgconfig
+    pkg-config
     bluez
     ffmpeg
     libao
@@ -107,7 +106,7 @@ in stdenv.mkDerivation rec {
     libevdev
     xorg.libXdmcp
     portaudio
-    libusb
+    libusb1
     libpulseaudio
     udev
     gnumake
@@ -122,7 +121,7 @@ in stdenv.mkDerivation rec {
     lzo
     sfml
     enet
-    xdg_utils
+    xdg-utils
     hidapi
     webkitgtk
   ];

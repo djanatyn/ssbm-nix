@@ -1,8 +1,8 @@
 { stdenv, gcc, fetchFromGitHub
-, mesa_drivers, mesa_glu, mesa, pkgconfig, cmake, bluez, ffmpeg, libao, libGLU
-, gtk2, gtk3, glib, gettext, xorg, readline, openal, libevdev, portaudio, libusb
+, mesa, pkg-config, cmake, bluez, ffmpeg, libao, libGLU
+, gtk2, gtk3, glib, gettext, xorg, readline, openal, libevdev, portaudio, libusb1
 , libpulseaudio, udev, gnumake, wxGTK30, gdk-pixbuf, soundtouch, miniupnpc
-, mbedtls, curl, lzo, sfml, enet, xdg_utils, hidapi, webkitgtk
+, mbedtls, curl, lzo, sfml, enet, xdg-utils, hidapi, webkitgtk
 , projectplus-sdcard, projectplus-config, tree }:
 stdenv.mkDerivation rec {
 
@@ -56,12 +56,11 @@ stdenv.mkDerivation rec {
     "-DGTK2_INCLUDE_DIRS=${gtk2}/lib/gtk-2.0"
   ];
 
-  nativeBuildInputs = [ pkgconfig cmake ];
+  nativeBuildInputs = [ pkg-config cmake ];
   buildInputs = [
-    mesa_drivers
-    mesa_glu
+    mesa.drivers
     mesa
-    pkgconfig
+    pkg-config
     bluez
     ffmpeg
     libao
@@ -78,7 +77,7 @@ stdenv.mkDerivation rec {
     libevdev
     xorg.libXdmcp
     portaudio
-    libusb
+    libusb1
     libpulseaudio
     udev
     gnumake
@@ -93,7 +92,7 @@ stdenv.mkDerivation rec {
     lzo
     sfml
     enet
-    xdg_utils
+    xdg-utils
     hidapi
     webkitgtk
     projectplus-sdcard
