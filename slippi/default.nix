@@ -27,14 +27,14 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "slippi-ishiiruka";
-  version = "3.0.0";
+  version = "3.0.2";
   name =
     "${pname}-${version}-${if playbackSlippi then "playback" else "netplay"}";
   src = fetchFromGitHub {
     owner = "project-slippi";
     repo = "Ishiiruka";
     rev = "v${version}";
-    sha256 = "sha256-FDDrVcFuvak3jCUvg2j5YLtMsSY3fSqsSnccxT6fiok=";
+    sha256 = "sha256-XfgVNpyp+8xuxiw21oLTh/UI8ImD+tCZ7o2zDTOZKgQ=";
   };
 
   outputs = [ "out" ];
