@@ -2,7 +2,7 @@
 , mesa, pkg-config, cmake, bluez, ffmpeg, libao, libGLU
 , gtk2, gtk3, glib, gettext, xorg, readline, openal, libevdev, portaudio, libusb1
 , libpulseaudio, udev, gnumake, wxGTK30, gdk-pixbuf, soundtouch, miniupnpc
-, mbedtls, curl, lzo, sfml, enet, xdg-utils, hidapi, webkitgtk
+, mbedtls_2, curl, lzo, sfml, enet, xdg-utils, hidapi, webkitgtk
 , projectplus-sdcard, projectplus-config, tree }:
 stdenv.mkDerivation rec {
 
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     gdk-pixbuf
     soundtouch
     miniupnpc
-    mbedtls
+    mbedtls_2
     curl
     lzo
     sfml

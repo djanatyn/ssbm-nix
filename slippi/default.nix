@@ -2,7 +2,7 @@
 , mesa, pkg-config, cmake, bluez, ffmpeg, libao, libGLU
 , gtk2, gtk3, wrapGAppsHook, glib, glib-networking, gettext, xorg, readline, openal, libevdev, portaudio, libusb1
 , libpulseaudio, udev, gnumake, wxGTK30, gdk-pixbuf, soundtouch, miniupnpc
-, mbedtls, curl, lzo, sfml, enet, xdg-utils, hidapi, webkitgtk, vulkan-loader }:
+, mbedtls_2, curl, lzo, sfml, enet, xdg-utils, hidapi, webkitgtk, vulkan-loader }:
 let
 
   netplay-desktop = makeDesktopItem {
@@ -27,14 +27,14 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "slippi-ishiiruka";
-  version = "3.0.3";
+  version = "3.0.4";
   name =
     "${pname}-${version}-${if playbackSlippi then "playback" else "netplay"}";
   src = fetchFromGitHub {
     owner = "project-slippi";
     repo = "Ishiiruka";
     rev = "v${version}";
-    sha256 = "sha256-KEUi9KakvqT/bGLdvzwhzRYqpfk31Un4AJEkB3AX4kw=";
+    sha256 = "sha256-8zORxpbeRtn7Xrb2NwYTuSsw3m9CWe1v0LBT4Du29F4=";
   };
 
   outputs = [ "out" ];
@@ -116,7 +116,7 @@ in stdenv.mkDerivation rec {
     gdk-pixbuf
     soundtouch
     miniupnpc
-    mbedtls
+    mbedtls_2
     curl
     lzo
     sfml
