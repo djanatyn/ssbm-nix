@@ -98,5 +98,78 @@
             environment.systemPackages = [ (mkIf cfg.keyb0xx.enable (pkgs.keyb0xx.override { keyb0xxconfig = cfg.keyb0xx.config; })) ];
           };
         };
+      homeManagerModule = { pkgs, config, ... }:
+        let
+          cfg = config.ssbm;
+        in
+        with nixpkgs.lib; {
+          options.ssbm = {
+            slippi-launcher = {
+              enable = mkEnableOption "Install Slippi Launcher";
+              # Game settings
+              isoPath = mkOption {
+                default = "";
+                type = types.str;
+                description = "The path to an NTSC Melee ISO.";
+              };
+              launchMeleeOnPlay = mkEnableOption "Launch Melee in Dolphin when the Play button is pressed." // { default = true; };
+              enableJukebox = mkEnableOption "Enable in-game music via Slippi Jukebox. Incompatible with WASAPI." // { default = true; };
+              # Replay settings
+              rootSlpPath = mkOption {
+                default = "${config.home.homeDirectory}/Slippi";
+                type = types.str;
+                description = "The folder where your SLP replays should be saved.";
+              };
+              useMonthlySubfolders = mkEnableOption "Save replays to monthly subfolders";
+              spectateSlpPath = mkOption {
+                default = "${cfg.slippi-launcher.rootSlpPath}/Spectate";
+                type = types.nullOr types.str;
+                description = "The folder where spectated games should be saved.";
+              };
+              extraSlpPaths = mkOption {
+                default = [ ];
+                type = types.listOf types.str;
+                description = "Choose any additional SLP directories that should show up in the replay browser.";
+              };
+              # Netplay
+              netplayDolphinPath = mkOption {
+                default = "${pkgs.slippi-netplay}";
+                type = types.str;
+                description = "The path to the folder containing the Netplay Dolphin Executable";
+              };
+              # Playback
+              playbackDolphinPath = mkOption {
+                default = "${pkgs.slippi-playback}";
+                type = types.str;
+                description = "The path to the folder containing the Playback Dolphin Executable";
+              };
+            };
+          };
+          config = {
+            home.packages = [ (mkIf cfg.slippi-launcher.enable pkgs.slippi-launcher) ];
+            xdg.configFile."Slippi Launcher/Settings".source =
+              let
+                jsonFormat = pkgs.formats.json { };
+              in
+              jsonFormat.generate "slippi-config" {
+                settings = {
+                  isoPath = cfg.slippi-launcher.isoPath;
+                  launchMeleeOnPlay = cfg.slippi-launcher.launchMeleeOnPlay;
+                  enableJukebox = cfg.slippi-launcher.enableJukebox;
+                  # Replay settings
+                  rootSlpPath = cfg.slippi-launcher.rootSlpPath;
+                  useMonthlySubfolders = cfg.slippi-launcher.useMonthlySubfolders;
+                  spectateSlpPath = cfg.slippi-launcher.spectateSlpPath;
+                  extraSlpPaths = cfg.slippi-launcher.extraSlpPaths;
+                  # Netplay
+                  netplayDolphinPath = cfg.slippi-launcher.netplayDolphinPath;
+                  # Playback
+                  playbackDolphinPath = cfg.slippi-launcher.playbackDolphinPath;
+                  # Advanced settings
+                  autoUpdateLauncher = false;
+                };
+              };
+          };
+        };
     };
 }

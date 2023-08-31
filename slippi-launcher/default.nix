@@ -3,6 +3,7 @@
 , fetchurl
 , makeDesktopItem
 , copyDesktopItems
+, makeWrapper
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -16,6 +17,7 @@ stdenvNoCC.mkDerivation rec {
       url = "https://github.com/project-slippi/slippi-launcher/releases/download/v${version}/Slippi-Launcher-${version}-x86_64.AppImage";
       hash = "sha256-zYxSVbxERLtz5/9IS8PUft6ZQw6kQtSUp0/KmmA/bmM=";
     };
+
     extraInstallCommands = ''
       source "${makeWrapper}/nix-support/setup-hook"
       wrapProgram $out/bin/slippi-launcher-${version} \
