@@ -20,7 +20,7 @@ ssbm.gcc.oc-kmod.enable = true;
 
 After building that configuration and switching to it, load the module:
 ``` sh
-sudo modprobe gcadpter_oc
+sudo modprobe gcadapter_oc
 ```
 
 The kernel module will be reloaded automatically on subsequent boots, since the flake updates `boot.kernelModules`.
