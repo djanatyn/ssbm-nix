@@ -70,14 +70,14 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "slippi-ishiiruka";
-  version = "3.2.2";
+  version = "3.3.0";
   name =
     "${pname}-${version}-${if playbackSlippi then "playback" else "netplay"}";
   src = fetchFromGitHub {
     owner = "project-slippi";
     repo = "Ishiiruka";
     rev = "v${version}";
-    hash = "sha256-wIrOZ3yesaGo3ieNmGXY1ht28joDgKjx3lOLUwD2IyE=";
+    hash = "sha256-mLkIRuyERmH5VF3UVU1VjM9wJYZhPhb6oIvZy7FhL0s=";
     fetchSubmodules = true;
   };
 
