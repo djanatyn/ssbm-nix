@@ -85,8 +85,8 @@
           config.boot.kernelPackages.gcadapter-oc-kmod
         ];
         nix = mkIf cfg.cache.enable {
-          binaryCaches = [ "https://ssbm-nix.cachix.org" ];
-          binaryCachePublicKeys = [ "ssbm-nix.cachix.org-1:YN104LKAWaKQIecOphkftXgXlYZVK/IRHM1UD7WAIew=" ];
+          settings.substituters = [ "https://ssbm-nix.cachix.org" ];
+          settings.trusted-public-keys = [ "ssbm-nix.cachix.org-1:YN104LKAWaKQIecOphkftXgXlYZVK/IRHM1UD7WAIew=" ];
         };
         environment.systemPackages = [ (mkIf cfg.keyb0xx.enable (pkgs.keyb0xx.override { keyb0xxconfig = cfg.keyb0xx.config; })) ];
       };
