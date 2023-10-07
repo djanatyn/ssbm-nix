@@ -1,6 +1,7 @@
 { slippi-desktop
 , final
-, prev }:
+, prev
+}:
 
 with final.pkgs; rec {
 
@@ -17,7 +18,8 @@ with final.pkgs; rec {
 
   slippi-netplay = callPackage ./slippi {
     inherit slippi-desktop;
-    playbackSlippi = false; };
+    playbackSlippi = false;
+  };
 
   slippi-netplay-chat-edition = slippi-netplay.overrideAttrs (oldAttrs: rec {
     pname = "slippi-ishiiruka-chat";
@@ -31,6 +33,8 @@ with final.pkgs; rec {
       sha256 = "1rd449s00dqmngp3mrapg91k4hhg2kyc0kizc37vb4l2zswpkqah";
     };
   });
+
+  slippi-launcher = callPackage ./slippi-launcher { };
 
   gcmtool = callPackage ./gcmtool { };
 

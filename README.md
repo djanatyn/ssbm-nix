@@ -9,7 +9,18 @@ Goals:
 * Build common training mods (UnclePunch, 20XX Hack Pack)
 
 # Playing Slippi Online!
+## With `slippi-netplay` directly
 Run `slippi-netplay` or the desktop entry.
+
+## With `slippi-launcher`
+Add the following to your Home Manager config:
+```nix
+ssbm.slippi-launcher= {
+  enable = true;
+  # Replace with the path to your Melee ISO
+  isoPath = "Path/To/SSBM.ciso";
+};
+```
 
 # FAQ
 ## How do I enable the GCC overclock adapter?
