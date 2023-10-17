@@ -32,5 +32,4 @@ jobs:
       run: nix build -L .#powerpc-eabi-assembling
     - name: Build GCMTool
       run: nix build -L .#gcmtool
-    - name: Is Formatted
-      run: nix fmt . -- --check
+
