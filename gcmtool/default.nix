@@ -1,7 +1,6 @@
 {
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
 }:
 stdenv.mkDerivation {
   pname = "gcmtool";
