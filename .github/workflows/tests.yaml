@@ -19,4 +19,4 @@ jobs:
         pwd
         nix flake check --experimental-features 'flakes nix-command'
     - name: Nix code is formatted
-      run: nix fmt . -- --check
+      run: nix --experimental-features 'flakes nix-command' fmt . -- --check
