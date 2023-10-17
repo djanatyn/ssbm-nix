@@ -20,7 +20,6 @@ jobs:
         nix flake check --experimental-features 'flakes nix-command'
     - name: Build Wiimm's Iso Tools
       run: nix build -L .#wiimms-iso-tools
-      continue-on-error: true
     - name: Build Slippi Netplay
       run: nix build -L .#slippi-netplay
     - name: Build Slippi Playback
