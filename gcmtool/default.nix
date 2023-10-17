@@ -1,5 +1,8 @@
-{ stdenv, fetchFromGitHub, fetchpatch }:
-
+{
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+}:
 stdenv.mkDerivation {
   pname = "gcmtool";
   version = "unstable-2020-11-24";

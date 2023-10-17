@@ -1,11 +1,11 @@
-{ stdenvNoCC
-, appimageTools
-, fetchurl
-, makeDesktopItem
-, copyDesktopItems
-, makeWrapper
+{
+  stdenvNoCC,
+  appimageTools,
+  fetchurl,
+  makeDesktopItem,
+  copyDesktopItems,
+  makeWrapper,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "slippi-launcher";
   version = "2.10.5";
@@ -33,8 +33,8 @@ stdenvNoCC.mkDerivation rec {
       desktopName = "Slippi Launcher";
       comment = "The way to play Slippi Online and watch replays";
       type = "Application";
-      categories = [ "Game" ];
-      keywords = [ "slippi" "melee" "rollback" ];
+      categories = ["Game"];
+      keywords = ["slippi" "melee" "rollback"];
     })
   ];
 
@@ -47,5 +47,5 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [copyDesktopItems];
 }

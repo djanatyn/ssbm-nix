@@ -1,5 +1,8 @@
-{ stdenv, fetchFromGitHub, buildGoPackage }:
-
+{
+  stdenv,
+  fetchFromGitHub,
+  buildGoPackage,
+}:
 buildGoPackage rec {
   pname = "gecko";
   version = "3.4.0";

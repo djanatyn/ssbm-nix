@@ -1,15 +1,14 @@
-{ slippi-desktop
-, final
-, prev
+{
+  slippi-desktop,
+  final,
+  prev,
 }:
-
 with final.pkgs; rec {
+  wiimms-iso-tools = callPackage ./wit {};
 
-  wiimms-iso-tools = callPackage ./wit { };
+  gecko = callPackage ./gecko {};
 
-  gecko = callPackage ./gecko { };
-
-  powerpc-eabi-assembling = callPackage ./powerpc-eabi-as { };
+  powerpc-eabi-assembling = callPackage ./powerpc-eabi-as {};
 
   slippi-playback = callPackage ./slippi {
     inherit slippi-desktop;
@@ -34,17 +33,16 @@ with final.pkgs; rec {
     };
   });
 
-  slippi-launcher = callPackage ./slippi-launcher { };
+  slippi-launcher = callPackage ./slippi-launcher {};
 
-  gcmtool = callPackage ./gcmtool { };
+  gcmtool = callPackage ./gcmtool {};
 
-  projectplus-sdcard = callPackage ./pplus/sdcard.nix { };
-  projectplus-config = callPackage ./pplus/config.nix { };
+  projectplus-sdcard = callPackage ./pplus/sdcard.nix {};
+  projectplus-config = callPackage ./pplus/config.nix {};
 
-  dat-texture-wizard = callPackage ./dtw { inherit cxfreeze; };
+  dat-texture-wizard = callPackage ./dtw {inherit cxfreeze;};
 
-  cxfreeze = callPackage ./dtw/cxfreeze.nix { };
+  cxfreeze = callPackage ./dtw/cxfreeze.nix {};
 
-  keyb0xx = callPackage ./keyb0xx { };
-
+  keyb0xx = callPackage ./keyb0xx {};
 }

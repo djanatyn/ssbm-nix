@@ -1,5 +1,9 @@
-{ stdenv, lib, python2, ncurses }:
-
+{
+  stdenv,
+  lib,
+  python2,
+  ncurses,
+}:
 python2.pkgs.buildPythonPackage rec {
   pname = "cx_Freeze";
   version = "6.4.1";
@@ -28,4 +32,3 @@ python2.pkgs.buildPythonPackage rec {
     license = licenses.psfl;
   };
 }
-
