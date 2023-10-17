@@ -4,7 +4,7 @@
   prev,
 }:
 with final.pkgs; rec {
-  wiimms-iso-tools = callPackage ./wit {};
+    wiimms-iso-tools = callPackage ./wit {};
 
   gecko = callPackage ./gecko {};
 
