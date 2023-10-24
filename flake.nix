@@ -59,13 +59,17 @@
     });
 
     nixosModule = {
-      pkgs,
+      system,
       config,
       ...
     }: let
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [self.overlay];
+      };
       cfg = config.ssbm;
     in
-      with nixpkgs.lib; {
+      with pkgs.lib; {
         options.ssbm = {
           overlay.enable = mkEnableOption "Activate the package overlay.";
           cache.enable = mkEnableOption "Turn on cache.";
@@ -100,10 +104,14 @@
         };
       };
     homeManagerModule = {
-      pkgs,
+      system,
       config,
       ...
     }: let
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [self.overlay];
+      };
       cfg = config.ssbm;
     in
       with nixpkgs.lib; {
