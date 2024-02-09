@@ -68,7 +68,7 @@
 in
   stdenv.mkDerivation rec {
     pname = "slippi-ishiiruka";
-    version = "3.3.1";
+    version = "3.4.0";
     name = "${pname}-${version}-${
       if playbackSlippi
       then "playback"

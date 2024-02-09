@@ -35,3 +35,9 @@ sudo modprobe gcadapter_oc
 ```
 
 The kernel module will be reloaded automatically on subsequent boots, since the flake updates `boot.kernelModules`.
+
+## How do I update Slippi?
+
+1. Edit the `version` in `slippi-launcher/default.nix` to be the latest on https://github.com/project-slippi/slippi-launcher/releases
+2. Edit the `version` in `slippi/default.nix` to be the latest on https://github.com/project-slippi/Ishiiruka/releases
+3. Run `nix build .#slippi-launcher`
