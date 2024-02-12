@@ -68,7 +68,7 @@
 in
   stdenv.mkDerivation rec {
     pname = "slippi-ishiiruka";
-    version = "3.3.1";
+    version = "3.4.0";
     name = "${pname}-${version}-${
       if playbackSlippi
       then "playback"
@@ -78,7 +78,7 @@ in
       owner = "project-slippi";
       repo = "Ishiiruka";
       rev = "v${version}";
-      hash = "sha256-06hS770zo/4XnvKc9Mtxn+cAvAF6fNXR+SRzKFNoh1Y=";
+      hash = "sha256-qYPrAPAPOoCqfidLsT+ycQd2dXtsjo1PRt4TznVZf6U=";
       fetchSubmodules = true;
     };
 
@@ -107,6 +107,7 @@ in
     postBuild = with lib;
       optionalString playbackSlippi ''
         rm -rf ../Data/Sys/GameSettings
+        mkdir -p ../Data
         cp -r "${slippi-desktop}/app/dolphin-dev/overwrite/Sys/GameSettings" ../Data/Sys
       ''
       + ''
