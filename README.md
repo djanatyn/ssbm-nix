@@ -40,8 +40,8 @@ The kernel module will be reloaded automatically on subsequent boots, since the 
 
 Generally, this should be all you need.
 
-1. Edit the `version` in `slippi-launcher/default.nix` to be the latest on https://github.com/project-slippi/slippi-launcher/releases
-2. Edit the `version` in `slippi/default.nix` to be the latest on https://github.com/project-slippi/Ishiiruka/releases
+1. Edit the `version` and reset the `hash` in `slippi-launcher/default.nix` to be the latest on https://github.com/project-slippi/slippi-launcher/releases
+2. Edit the `version` and reset the `hash` in `slippi/default.nix` to be the latest on https://github.com/project-slippi/Ishiiruka/releases
 3. Run `nix build .#slippi-launcher`. It will fail and you need to update the checksums as output.
 
 For reasons unbeknownst to me, sometimes you need to try building a couple times
