@@ -1,5 +1,9 @@
-{ stdenv, fetchFromGitHub, zlib, autoPatchelfHook }:
-
+{
+  stdenv,
+  fetchFromGitHub,
+  zlib,
+  autoPatchelfHook,
+}:
 stdenv.mkDerivation rec {
   name = "powerpc-eabi-assembling";
   pname = "${name}-unstable";
@@ -14,7 +18,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source/Linux";
 
-  nativeBuildInputs = [ zlib autoPatchelfHook ];
+  nativeBuildInputs = [zlib autoPatchelfHook];
   installPhase = ''
     install -Dm755 powerpc-eabi-as -t $out/bin
     install -Dm755 powerpc-eabi-objcopy -t $out/bin

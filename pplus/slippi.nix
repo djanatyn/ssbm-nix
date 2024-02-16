@@ -1,14 +1,47 @@
-{ stdenv, gcc, fetchFromGitHub
-, mesa, pkg-config, cmake, bluez, ffmpeg, libao, libGLU
-, gtk2, gtk3, glib, gettext, xorg, readline, openal, libevdev, portaudio, libusb1
-, libpulseaudio, udev, gnumake, wxGTK30, gdk-pixbuf, soundtouch, miniupnpc
-, mbedtls, curl, lzo, sfml, enet, xdg-utils, hidapi, webkitgtk
-, projectplus-sdcard, projectplus-config, tree }:
+{
+  stdenv,
+  gcc,
+  fetchFromGitHub,
+  mesa,
+  pkg-config,
+  cmake,
+  bluez,
+  ffmpeg,
+  libao,
+  libGLU,
+  gtk2,
+  gtk3,
+  glib,
+  gettext,
+  xorg,
+  readline,
+  openal,
+  libevdev,
+  portaudio,
+  libusb1,
+  libpulseaudio,
+  udev,
+  gnumake,
+  wxGTK30,
+  gdk-pixbuf,
+  soundtouch,
+  miniupnpc,
+  mbedtls,
+  curl,
+  lzo,
+  sfml,
+  enet,
+  xdg-utils,
+  hidapi,
+  webkitgtk,
+  projectplus-sdcard,
+  projectplus-config,
+  tree,
+}:
 stdenv.mkDerivation rec {
-
-## TODO
-# - fix hash for netplay??
-# - maybe include discextractor patch?
+  ## TODO
+  # - fix hash for netplay??
+  # - maybe include discextractor patch?
 
   name = "projectplus-slippi";
   version = "2.15";
@@ -31,19 +64,19 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    cp -rf ${projectplus-config}/Binaries/* Binaries/
-    mkdir -p Binaries/User/Wii
-#   tee < ${projectplus-sdcard}/sd.raw > Binaries/User/Wii/sd.raw
-    install -D -m 755 ${projectplus-sdcard}/sd.raw Binaries/User/Wii
-    mkdir -p $out
-    cp Binaries/ $out/ -r
-    tree > $out/files.txt
-    tree $out > $out/outtree.txt
+        cp -rf ${projectplus-config}/Binaries/* Binaries/
+        mkdir -p Binaries/User/Wii
+    #   tee < ${projectplus-sdcard}/sd.raw > Binaries/User/Wii/sd.raw
+        install -D -m 755 ${projectplus-sdcard}/sd.raw Binaries/User/Wii
+        mkdir -p $out
+        cp Binaries/ $out/ -r
+        tree > $out/files.txt
+        tree $out > $out/outtree.txt
   '';
-#   sed -i -e "s|LauncherDir|${LauncherDir}|" $ConfigPath
-#   sed -i -e "s|GamesPath|${GamesDir}|" $ConfigPath
-#   sed -i -e "s|SDPath|${SDPath}|" $ConfigPath
-#   sed -i -e "s|ISODirPath|${IsoPath}|" $ConfigPath
+  #   sed -i -e "s|LauncherDir|${LauncherDir}|" $ConfigPath
+  #   sed -i -e "s|GamesPath|${GamesDir}|" $ConfigPath
+  #   sed -i -e "s|SDPath|${SDPath}|" $ConfigPath
+  #   sed -i -e "s|ISODirPath|${IsoPath}|" $ConfigPath
 
   cmakeFlags = [
     "-DLINUX_LOCAL_DEV=true"
@@ -56,7 +89,7 @@ stdenv.mkDerivation rec {
     "-DGTK2_INCLUDE_DIRS=${gtk2}/lib/gtk-2.0"
   ];
 
-  nativeBuildInputs = [ pkg-config cmake ];
+  nativeBuildInputs = [pkg-config cmake];
   buildInputs = [
     mesa.drivers
     mesa
@@ -99,5 +132,4 @@ stdenv.mkDerivation rec {
     projectplus-config
     tree
   ];
-
 }

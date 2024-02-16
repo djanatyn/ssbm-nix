@@ -1,5 +1,9 @@
-{ stdenv, fetchFromGitHub, python27, cxfreeze }:
-
+{
+  stdenv,
+  fetchFromGitHub,
+  python27,
+  cxfreeze,
+}:
 python27.pkgs.buildPythonApplication rec {
   pname = "dat-texture-wizard";
   version = "6.1.2";
@@ -11,8 +15,7 @@ python27.pkgs.buildPythonApplication rec {
     sha256 = "kYLrbmlx1HbWRm+Y+arTrWp4F2pIJaxhFjKTMTG7e1E=";
   };
 
-  propagatedBuildInputs = with python27.pkgs; [ pillow psutil cxfreeze cffi ];
+  propagatedBuildInputs = with python27.pkgs; [pillow psutil cxfreeze cffi];
 
   meta.broken = true;
-
 }
