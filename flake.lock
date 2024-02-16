@@ -25,11 +25,11 @@
     "slippi-desktop": {
       "flake": false,
       "locked": {
-        "lastModified": 1706482760,
-        "narHash": "sha256-l6KunEEwadCGaL8MPSOJB1ZB41TXmDsoh27eVdxojoM=",
+        "lastModified": 1707981080,
+        "narHash": "sha256-Qd1jLAXWvxA5SHcafgHFRs1+XYz8yXLdQ27+qZ8MYxk=",
         "owner": "project-slippi",
         "repo": "slippi-desktop-app",
-        "rev": "5a32466751445f9963a3c0dedbe513ad127440f7",
+        "rev": "16ab255406f7ab86846a7786ff15e3543501397c",
         "type": "github"
       },
       "original": {
